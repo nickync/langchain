@@ -49,13 +49,15 @@ async def index():
             if (!msg) return;
             chatBox.innerHTML += `<div class='msg user'>🧑‍💬 ${msg}</div>`;
             input.value = '';
-            const res = await fetch('/ask', {
+            const res = await fetch('/chat', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({message: msg})
             });
+            console.log(res);
             const data = await res.json();
-            chatBox.innerHTML += `<div class='msg bot'>🤖 ${data.response}</div>`;
+            console.log(data);
+            chatBox.innerHTML += `<div class='msg bot'>🤖 ${data.answer}</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
           };
         </script>

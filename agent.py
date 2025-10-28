@@ -56,7 +56,7 @@ def act_step(state):
     plan = state["plan"]
     print(f"[DEBUG] plan is {plan}")
     user_input = state["input"]
-    if "DO_MATH" in plan:
+    if "DO_MATH" in plan or not 'Invalid math expression' in plan:
         print(f"[INFO] Performing math operation : {user_input}")
         state["result"] = simple_math(user_input)
     elif "DO_SEARCH" in plan:
