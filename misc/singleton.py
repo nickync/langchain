@@ -57,3 +57,5 @@ def remove_dul(ls):
     return res
 
 print(remove_dul([3,3,2,6,1,1,6,2]))
+
+
