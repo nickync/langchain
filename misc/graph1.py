@@ -24,6 +24,7 @@
 
 # Minimum total fuel required.
 
+from collections import deque
 import queue
 
 
@@ -88,7 +89,7 @@ def cost_dist(n, cities):
         graph[v].append(u)
 
     dist = [-1] * n
-    #dist[0] = 0
+    dist[0] = 0
 
     dq = deque([0])
     while dq:
@@ -101,4 +102,77 @@ def cost_dist(n, cities):
     print(dist)
 
 
-print(cost_dist(5, roads))
+#print(cost_dist(5, roads))
+
+
+# Graph Problem: Course Prerequisite Ordering
+
+# You are given:
+
+# n courses labeled 0 to n-1
+
+# A list of prerequisite pairs where each pair [a, b] means:
+
+# To take course a, you must take course b first.
+
+# Goal
+
+# Return one valid order to complete all courses.
+
+# If no valid order exists (i.e., cycle), return [].
+
+# 📘 Example
+
+# Input
+
+n = 4
+prerequisites = [
+    [1, 0],  # take 1 after 0
+    [2, 0],  # take 2 after 0
+    [3, 1],  # take 3 after 1
+    [3, 2]   # take 3 after 2
+]
+
+
+# Valid output
+
+# [0, 1, 2, 3]
+
+def find_course_order(n, prerequisites):
+    
+    from collections import defaultdict, deque
+    graph = defaultdict(list)
+
+    for c1, c2 in prerequisites:
+        graph[c2].append(c1)
+
+    #for k in graph.keys(): print(k, graph[k], end='\n')
+
+    visited = set()
+
+    dq = deque([0])
+    while dq:
+        node = dq.popleft()
+        for nei in graph[node]:
+            if nei not in visited:
+            
+                dq.append(nei)
+            else:
+                return -1
+        visited.add(node)
+    print(visited)
+
+    if len(visited) == n:
+        return visited
+    return -1
+
+n = 3
+prerequisites = [
+    [0, 1],
+    [1, 2],
+    [2, 0]
+]
+
+
+print( find_course_order(n, prerequisites) )
+        
